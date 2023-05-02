@@ -1,0 +1,45 @@
+@import '../mixins.scss';
+@import '../colors.scss';
+
+.app {
+  &__background {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: $almost-black;
+    background-image: url(../assets/images/screen/sunSmall.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    padding: 2em 1em;
+    width: 100%;
+
+    &-main {
+      flex-direction: column;
+      @include center;
+      margin: 1em 0 2em 0;
+      padding: 2em;
+      width: 250px;
+      height: 250px;
+      font-size: 2rem;
+      font-weight: 100;
+      background-color: rgba($almost-black, 0.2);
+      border-radius: 50%;
+
+      & .temparature {
+        padding: 0.2em 0;
+        font-size: 5rem;
+      }
+
+      & .city {
+        font-size: 3rem;
+      }
+    }
+  }
+}
