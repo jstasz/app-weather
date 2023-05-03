@@ -1,9 +1,14 @@
 <div class="app__background"></div>
 <div class="app__content">
   <div class="app__content-main">
-    <p class="city">New York</p>
-    <p class="temparature">35°</p>
-    <p class="description">partly cloudy</p>
+    <div *ngIf="!isLoading">
+      <p class="city">New York</p>
+      <p class="temparature">{{temp}}°</p>
+      <p class="description">partly cloudy</p>
+    </div>
+    <div *ngIf="isLoading">
+      <p>Loading...</p>
+    </div>
   </div>
   <div class="dark-cart">
     <p class="dark-cart__title">tempetaure</p>
