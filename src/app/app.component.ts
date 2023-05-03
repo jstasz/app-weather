@@ -15,6 +15,7 @@ interface Position {
 })
 export class AppComponent {
   temp: number = 0;
+  city: string = '';
   isLoading: boolean = true;
 
   constructor(private http: HttpClient) {}
@@ -29,12 +30,24 @@ export class AppComponent {
 				(position: Position) => {
           const { latitude } = position.coords;
 		      const { longitude } = position.coords;
-          this.getWeather(latitude, longitude)
+          this.getWeather(latitude, longitude);
+          this.getCityName(latitude, longitude);
+          this.isLoading = false;
         },
 				function () {
 					alert(`could not get your position`);
 				}
-			);
+			)
+  }
+
+  getCityName(lat: number, lon: number) {
+    const apiKey = '95cfebe49f7542d5b304920c806cc54f';
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${apiKey}`;
+
+    this.http.get<any>(url).subscribe(data => {
+      const currentCity = data.results[0].components.city;
+      this.city = currentCity;
+    })
   }
 
   getWeather(lat: number, lon: number) {
@@ -42,9 +55,8 @@ export class AppComponent {
       `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,apparent_temperature,precipitation_probability,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum,windspeed_10m_max&current_weather=true&timezone=auto`
     ).subscribe(data => 
       {
-        const currentTemp: number = data.current_weather.temperature;
-        this.temp = currentTemp;
-        this.isLoading = false;
+        const temp: number = data.current_weather.temperature;
+        this.temp = temp;
       }
     )
   }
