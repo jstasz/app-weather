@@ -1,0 +1,42 @@
+<div class="app__content-main">
+    <div *ngIf="!isLoading">
+        <p class="city">{{city}}</p>
+        <p>śr, 3 maja 18:40</p>
+        <p class="temparature">{{temp}}°</p>
+        <p>14° / 2°</p>
+        <p class="description">partly cloudy</p>
+    </div>
+    <div *ngIf="isLoading">
+        <p>Loading...</p>
+    </div>
+</div>
+<div class="dark-card">
+    <p class="dark-card__title">hours</p>
+    <div class="dark-card__element">
+        <p>19;00</p>
+        <p class="img"><span class="material-symbols-outlined">partly_cloudy_day</span></p>
+        <p>35°</p>
+    </div>
+    <div class="dark-card__element">
+        <p>20:00</p>
+        <p class="img"><span class="material-symbols-outlined">partly_cloudy_day</span></p>
+        <p>35°</p>
+    </div>
+    <div class="dark-card__element">
+        <p>21:00</p>
+        <p class="img"><span class="material-symbols-outlined">partly_cloudy_day</span></p>
+        <p>35°</p>
+    </div>
+    <div class="dark-card__element">
+        <p>22:00</p>
+        <p class="img"><span class="material-symbols-outlined">partly_cloudy_day</span></p>
+        <p>35°</p>
+    </div>
+    <div class="dark-card__element">
+        <p>23:00</p>
+        <p class="img"><span class="material-symbols-outlined">partly_cloudy_day</span></p>
+        <p>35°</p>
+    </div>
+</div>
+<div class="dark-card">
+</div>
