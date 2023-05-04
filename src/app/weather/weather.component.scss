@@ -1,0 +1,89 @@
+@import '../../mixins.scss';
+@import '../../colors.scss';
+
+.app {
+  &__content {
+        &-main {
+            flex-direction: column;
+            @include center;
+            margin: 1em auto 2em auto;
+            padding: 2em;
+            width: 250px;
+            height: 250px;
+            font-size: 2rem;
+            font-weight: 100;
+            text-align: center;
+            background-color: rgba($almost-black, 0.2);
+            border-radius: 50%;
+            
+            & .temparature {
+              padding: 0.2em 0;
+              font-size: 5rem;
+            }
+          
+            & .city {
+              font-size: 3rem;
+            }
+        }
+    }
+}
+
+.dark-card {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0.5em 0;
+    padding: 0.5em;
+    width: 100%;
+    background-color: $dark-card;
+    border-radius: 10px;
+  
+    & .item {
+        @include center;
+        padding: 1em;
+
+        &__rain {
+            @include center;
+
+            &-drop {
+                font-size: 1.5rem;
+            }
+        }
+        
+        &__img {
+            font-size: 2.8rem;
+        }
+
+        & .material-symbols-outlined {
+          font-variation-settings:
+          'wght' 300,
+        }
+    }
+}
+
+.dark-card-today {
+    & .item {
+      @include center;
+      flex-direction: column;
+      width: 20%;
+
+      &__rain {
+        padding-top: 0.5em;
+      }
+
+      &__img {
+        padding: 0.5em 0;
+      }
+    }
+}
+
+.dark-card-days {
+    & .item {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        &__img {
+            padding: 0.2em 0;
+        }
+    }
+}
