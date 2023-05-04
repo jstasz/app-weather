@@ -1,9 +1,11 @@
 <div class="app__content-main">
     <div *ngIf="!isLoading">
-        <p class="city">{{city}}</p>
-        <p>śr, 3 maja 18:40</p>
-        <p class="temparature">{{temp}}°</p>
-        <p>14° / 2°</p>
+        <p class="city">{{currentWeather ? currentWeather.city : ''}}</p>
+        <p>{{ currentWeather ? currentWeather.curDate.getDate().toString().padStart(2, '0') + ' / ' +
+            currentWeather.curDate.getMonth().toString().padStart(2, '0') + ' /' +
+            currentWeather.curDate.getFullYear() : ''}}</p>
+        <p class="temparature">{{currentWeather ? currentWeather.curTemp + '°' : ''}}</p>
+        <p>{{currentWeather ? currentWeather.maxTemp + '° / ' + currentWeather.minTemp + '°' : ''}}</p>
         <p class="description">partly cloudy</p>
     </div>
     <div *ngIf="isLoading">

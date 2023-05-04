@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CurrentWeather } from './weather.model';
 import { WeatherService } from './weather.service';
 
 @Component({
@@ -7,16 +8,16 @@ import { WeatherService } from './weather.service';
   styleUrls: ['./weather.component.scss']
 })
 export class WeatherComponent implements OnInit {
-  temp: number = 0;
+  currentWeather!: CurrentWeather;
   city: string = '';
   isLoading: boolean = true;
 
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
-    this.weatherService.getPosition();
     this.weatherService.cityChange.subscribe(city => this.city = city);
-    this.weatherService.tempChange.subscribe(temp => this.temp = temp);
+    this.weatherService.currentWeatherChange.subscribe(weather => this.currentWeather = weather);
     this.weatherService.isLoadingChange.subscribe(load => this.isLoading = load);
+    this.weatherService.getPosition();
   }
 }
