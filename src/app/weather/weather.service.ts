@@ -28,6 +28,7 @@ export class WeatherService {
                 .then(() => {
                     this.getCurrentWeather(latitude, longitude);
                     this.getHoursWeather(latitude, longitude);
+                    this.getDaysWeather(latitude, longitude);
                     this.isLoading.next(false);
                     })
                 .catch(() => {
@@ -81,6 +82,12 @@ export class WeatherService {
             })
             this.hoursWeather = hoursWeather;
             this.hoursWeatherChange.next(this.hoursWeather);
+        })
+    }
+
+    getDaysWeather(lat: number, lon: number) {
+        this.dataStorageService.getWeather(lat, lon).subscribe(data => {
+            const nextDays = data.daily.time.slice(1);
         })
     }
 }
