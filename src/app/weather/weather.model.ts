@@ -25,8 +25,10 @@ export class HoursWeather {
     constructor(
         public hour: string,
         public temp: string,
+        public precipitation: string,
     ) {
         this.hour = hour;
         this.temp = temp;
+        this.precipitation = precipitation;
     }
 }

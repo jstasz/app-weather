@@ -63,18 +63,20 @@ export class WeatherService {
             const currentDate: Date = new Date;
             this.currentWeather = new CurrentWeather(currentDate, this.city, currentTemp, minTemp, maxTemp);
             this.currentWeatherChange.next(this.currentWeather);
+            console.log(data)
         })
     }
 
     getHoursWeather(lat: number, lon: number) {
         this.dataStorageService.getWeather(lat, lon).subscribe(data => {
             const currentHour = new Date().getHours();
-            const tempHours = data.hourly.temperature_2m.slice(currentHour+1, currentHour+6);
             const nextHours = data.hourly.time.slice(currentHour+1, currentHour+6);
+            const tempHours = data.hourly.temperature_2m.slice(currentHour+1, currentHour+6);
+            const precipitation = data.hourly.precipitation_probability.slice(currentHour+1, currentHour+6)
             const hoursWeather : HoursWeather[] = [];
 
             nextHours.map((hour: string, index: number) => {
-                const weatherItem = new HoursWeather(hour, tempHours[index]);
+                const weatherItem = new HoursWeather(hour, tempHours[index], precipitation[index]);
                 hoursWeather.push(weatherItem);
             })
             this.hoursWeather = hoursWeather;
