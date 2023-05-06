@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject} from 'rxjs';
 import { DataStorageService } from '../data-storage.service';
-import { CurrentWeather, HoursWeather, Position } from './weather.model';
+import { CurrentWeather, DaysWeather, HoursWeather, Position } from './weather.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,8 @@ export class WeatherService {
     currentWeatherChange = new Subject<CurrentWeather>();
     hoursWeather! : HoursWeather[];
     hoursWeatherChange = new Subject<HoursWeather[]>();
+    daysWeather! : DaysWeather[];
+    daysWeatherChange = new Subject<DaysWeather[]>();
 
   constructor(private dataStorageService : DataStorageService) { }
 
@@ -73,7 +75,7 @@ export class WeatherService {
             const currentHour = new Date().getHours();
             const nextHours = data.hourly.time.slice(currentHour+1, currentHour+6);
             const tempHours = data.hourly.temperature_2m.slice(currentHour+1, currentHour+6);
-            const precipitation = data.hourly.precipitation_probability.slice(currentHour+1, currentHour+6)
+            const precipitation = data.hourly.precipitation_probability.slice(currentHour+1, currentHour+6);
             const hoursWeather : HoursWeather[] = [];
 
             nextHours.map((hour: string, index: number) => {
@@ -88,6 +90,17 @@ export class WeatherService {
     getDaysWeather(lat: number, lon: number) {
         this.dataStorageService.getWeather(lat, lon).subscribe(data => {
             const nextDays = data.daily.time.slice(1);
+            const precipitation = data.daily.precipitation_sum.slice(1);
+            const minTemp = data.daily.temperature_2m_min.slice(1);
+            const maxTemp = data.daily.temperature_2m_max.slice(1);
+            const daysWeather : DaysWeather[] = [];
+
+            nextDays.map((day : string, index: number) => {
+                const weatherItem = new DaysWeather(day, precipitation[index], maxTemp[index], minTemp[index]);
+                daysWeather.push(weatherItem);
+            })
+            this.daysWeather = daysWeather;
+            this.daysWeatherChange.next(this.daysWeather);
         })
     }
 }

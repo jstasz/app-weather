@@ -32,3 +32,17 @@ export class HoursWeather {
         this.precipitation = precipitation;
     }
 }
+
+export class DaysWeather {
+    constructor(
+        public day: string,
+        public precipitation: string,
+        public minTemp: string,
+        public maxTemp: string,
+    ) {
+        this.day = day;
+        this.precipitation = precipitation;
+        this.minTemp = minTemp;
+        this.maxTemp = maxTemp;
+    }
+}
