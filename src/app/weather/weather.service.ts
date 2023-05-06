@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject} from 'rxjs';
 import { DataStorageService } from '../data-storage.service';
-import { CurrentWeather, Position } from './weather.model';
+import { CurrentWeather, HoursWeather, Position } from './weather.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,8 @@ export class WeatherService {
     cityChange = new Subject<string>();
     currentWeather!: CurrentWeather;
     currentWeatherChange = new Subject<CurrentWeather>();
+    hoursWeather! : HoursWeather[];
+    hoursWeatherChange = new Subject<HoursWeather[]>();
 
   constructor(private dataStorageService : DataStorageService) { }
 
@@ -24,7 +26,8 @@ export class WeatherService {
 
                 this.getCityName(latitude, longitude)
                 .then(() => {
-                    this.getWeather(latitude, longitude);
+                    this.getCurrentWeather(latitude, longitude);
+                    this.getHoursWeather(latitude, longitude);
                     this.isLoading.next(false);
                     })
                 .catch(() => {
@@ -52,7 +55,7 @@ export class WeatherService {
         })
     }
     
-    getWeather(lat: number, lon: number) {
+    getCurrentWeather(lat: number, lon: number) {
         this.dataStorageService.getWeather(lat, lon).subscribe(data => {
             const currentTemp: number = data.current_weather.temperature;
             const minTemp: number = data.daily.temperature_2m_min[0];
@@ -60,6 +63,22 @@ export class WeatherService {
             const currentDate: Date = new Date;
             this.currentWeather = new CurrentWeather(currentDate, this.city, currentTemp, minTemp, maxTemp);
             this.currentWeatherChange.next(this.currentWeather);
+        })
+    }
+
+    getHoursWeather(lat: number, lon: number) {
+        this.dataStorageService.getWeather(lat, lon).subscribe(data => {
+            const currentHour = new Date().getHours();
+            const tempHours = data.hourly.temperature_2m.slice(currentHour+1, currentHour+6);
+            const nextHours = data.hourly.time.slice(currentHour+1, currentHour+6);
+            const hoursWeather : HoursWeather[] = [];
+
+            nextHours.map((hour: string, index: number) => {
+                const weatherItem = new HoursWeather(hour, tempHours[index]);
+                hoursWeather.push(weatherItem);
+            })
+            this.hoursWeather = hoursWeather;
+            this.hoursWeatherChange.next(this.hoursWeather);
         })
     }
 }

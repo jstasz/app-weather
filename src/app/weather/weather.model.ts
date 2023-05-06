@@ -19,4 +19,14 @@ export class CurrentWeather {
         this.minTemp = minTemp;
         this.maxTemp = maxTemp;
     }
-  }
+}
+
+export class HoursWeather {
+    constructor(
+        public hour: string,
+        public temp: string,
+    ) {
+        this.hour = hour;
+        this.temp = temp;
+    }
+}
