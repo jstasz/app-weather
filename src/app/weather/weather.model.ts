@@ -12,12 +12,14 @@ export class CurrentWeather {
         public curTemp: number, 
         public minTemp: number, 
         public maxTemp: number, 
+        public weatherCode: {image: string, description: string, icon: string},
     ) {
         this.curDate = curDate;
         this.city = city;
         this.curTemp = curTemp;
         this.minTemp = minTemp;
         this.maxTemp = maxTemp;
+        this.weatherCode = weatherCode;
     }
 }
 
@@ -26,10 +28,12 @@ export class HoursWeather {
         public hour: string,
         public temp: string,
         public precipitation: string,
+        public weatherCode: {image: string, description: string, icon: string},
     ) {
         this.hour = hour;
         this.temp = temp;
         this.precipitation = precipitation;
+        this.weatherCode = weatherCode;
     }
 }
 
@@ -39,10 +43,12 @@ export class DaysWeather {
         public precipitation: string,
         public minTemp: string,
         public maxTemp: string,
+        public weatherCode: {image: string, description: string, icon: string},
     ) {
         this.day = day;
         this.precipitation = precipitation;
         this.minTemp = minTemp;
         this.maxTemp = maxTemp;
+        this.weatherCode = weatherCode;
     }
 }

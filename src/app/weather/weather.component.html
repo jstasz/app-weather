@@ -12,13 +12,13 @@
                 currentWeather.curDate.getMinutes().toString().padStart(2, '0')}}</p>
             <p class="temparature">{{currentWeather.curTemp + '°'}}</p>
             <p>{{currentWeather.maxTemp + '° / ' + currentWeather.minTemp + '°'}}</p>
-            <p class="description">partly cloudy</p>
+            <p class="description">{{currentWeather.weatherCode.description}}</p>
         </div>
     </div>
     <div class="dark-card dark-card-today" *ngIf="hoursWeather">
         <div class="item" *ngFor="let weather of hoursWeather">
             <p>{{weather.hour.slice(11)}}</p>
-            <p class="material-symbols-outlined item__img">partly_cloudy_day</p>
+            <p class="material-symbols-outlined item__img">{{weather.weatherCode.icon}}</p>
             <p>{{weather.temp + '°'}}</p>
             <div class="item__rain">
                 <p class="material-symbols-outlined item__rain-drop">water_drop</p>
@@ -27,14 +27,14 @@
         </div>
     </div>
     <div class="dark-card dark-card-days" *ngIf="daysWeather">
-        <div class="item" *ngFor="let item of daysWeather">
-            <p>{{item.day}}</p>
+        <div class="item" *ngFor="let weather of daysWeather">
+            <p>{{weather.day}}</p>
             <div class="item__rain">
                 <p class="material-symbols-outlined item__rain-drop">water_drop</p>
-                <p>{{item.precipitation + ' mm'}}</p>
+                <p>{{weather.precipitation + ' mm'}}</p>
             </div>
-            <p class="material-symbols-outlined item__img">partly_cloudy_day</p>
-            <p>{{item.maxTemp + '° / ' + item.minTemp + '°'}}</p>
+            <p class="material-symbols-outlined item__img">{{weather.weatherCode.icon}}</p>
+            <p>{{weather.maxTemp + '° / ' + weather.minTemp + '°'}}</p>
         </div>
     </div>
 </div>

@@ -60,11 +60,12 @@ export class WeatherService {
     
     getCurrentWeather(lat: number, lon: number) {
         this.dataStorageService.getWeather(lat, lon).subscribe(data => {
+            const currentDate: Date = new Date;
             const currentTemp: number = data.current_weather.temperature;
             const minTemp: number = data.daily.temperature_2m_min[0];
             const maxTemp: number = data.daily.temperature_2m_max[0];
-            const currentDate: Date = new Date;
-            this.currentWeather = new CurrentWeather(currentDate, this.city, currentTemp, minTemp, maxTemp);
+            const weatherCode = this.getWeatherCode(data.current_weather.weathercode);
+            this.currentWeather = new CurrentWeather(currentDate, this.city, currentTemp, minTemp, maxTemp, weatherCode);
             this.currentWeatherChange.next(this.currentWeather);
         })
     }
@@ -75,10 +76,12 @@ export class WeatherService {
             const nextHours = data.hourly.time.slice(currentHour+1, currentHour+6);
             const tempHours = data.hourly.temperature_2m.slice(currentHour+1, currentHour+6);
             const precipitation = data.hourly.precipitation_probability.slice(currentHour+1, currentHour+6);
+            const codeHours: number[] = data.hourly.weathercode.slice(currentHour+1, currentHour+6);
+            const weatherCodes = codeHours.map(el => this.getWeatherCode(el));
             const hoursWeather : HoursWeather[] = [];
 
             nextHours.map((hour: string, index: number) => {
-                const weatherItem = new HoursWeather(hour, tempHours[index], precipitation[index]);
+                const weatherItem = new HoursWeather(hour, tempHours[index], precipitation[index], weatherCodes[index]);
                 hoursWeather.push(weatherItem);
             })
             this.hoursWeather = hoursWeather;
@@ -92,15 +95,78 @@ export class WeatherService {
             const precipitation = data.daily.precipitation_sum.slice(1);
             const minTemp = data.daily.temperature_2m_min.slice(1);
             const maxTemp = data.daily.temperature_2m_max.slice(1);
+            const codeDays: number[] = data.daily.weathercode.slice(1);
+            const weatherCodes = codeDays.map(el => this.getWeatherCode(el));
             const daysWeather : DaysWeather[] = [];
             console.log(data)
 
             nextDays.map((day : string, index: number) => {
-                const weatherItem = new DaysWeather(day, precipitation[index], maxTemp[index], minTemp[index]);
+                const weatherItem = new DaysWeather(day, precipitation[index], maxTemp[index], minTemp[index], weatherCodes[index]);
                 daysWeather.push(weatherItem);
             })
             this.daysWeather = daysWeather;
             this.daysWeatherChange.next(this.daysWeather);
         })
+    }
+
+    getWeatherCode(code: number) {
+        let weatherCode;
+        switch (code) {
+            case 0:
+                weatherCode = {image: 'clear_sky.jpg', description: 'Clear Sky', icon: 'clear_day'};
+                break;
+            case 1:
+            case 2:
+            case 3: 
+                weatherCode = {image: 'mainly_clear.jpg', description: 'Mainly Clear', icon: 'partly_cloudy_day'};
+                break;
+            case 45:
+            case 48: 
+                weatherCode = {image: 'fog.jpg', description: 'Fog', icon: 'foggy'};
+                break;
+            case 51:
+            case 53:
+            case 55:
+                weatherCode = {image: 'rain.jpg', description: 'Drizzle', icon: 'rainy'};
+                break;
+            case 56:
+            case 57: 
+                weatherCode = {image: 'rain.jpg', description: 'Freezing Drizzle', icon: 'rainy'};
+                break;
+            case 61:
+            case 63:
+            case 65: 
+                weatherCode = {image: 'rain.jpg', description: 'Rain', icon: 'rainy'};
+                break;
+            case 66:
+            case 67: 
+                weatherCode = {image: 'rain.jpg', description: 'Freezing Rain', icon: 'rainy'};
+                break;
+            case 71:
+            case 73:
+            case 75:
+                weatherCode = {image: 'snow.jpg', description: 'Snow Fall', icon: 'ac_unit'};
+                break;
+            case 77:
+                weatherCode = {image: 'snow.jpg', description: 'Snow grains', icon: 'ac_unit'};
+                break;
+            case 80:
+            case 81:
+            case 82:
+                weatherCode = {image: 'rain.jpg', description: 'Rain Showers', icon: 'rainy'};
+                break;
+            case 85:
+            case 86:
+                weatherCode = {image: 'snow.jpg', description: 'Snow Showers', icon: 'ac_unit'};
+                break;
+            case 95:
+            case 96:
+            case 99:
+                weatherCode = {image: 'storm.jpg', description: 'Thunderstorm', icon: 'thunderstorm'};
+                break;
+            default:
+                weatherCode = {image: 'main.jpg', description: 'error', icon: 'partly_cloudy_day'};
+        }
+        return weatherCode;
     }
 }
