@@ -109,59 +109,59 @@ export class WeatherService {
         let weatherCode;
         switch (code) {
             case 0:
-                weatherCode = {image: 'clear_sky.jpg', description: 'Clear Sky', icon: ''};
+                weatherCode = {image: 'clear_sky.jpg', description: 'Clear Sky', icon: 'clear_day'};
                 break;
             case 1:
             case 2:
             case 3: 
-                weatherCode = {image: 'mainly_clear.jpg', description: 'Mainly Clear', icon: ''};
+                weatherCode = {image: 'mainly_clear.jpg', description: 'Mainly Clear', icon: 'partly_cloudy_day'};
                 break;
             case 45:
             case 48: 
-                weatherCode = {image: 'fog.jpg', description: 'Fog', icon: ''};
+                weatherCode = {image: 'fog.jpg', description: 'Fog', icon: 'foggy'};
                 break;
             case 51:
             case 53:
             case 55:
-                weatherCode = {image: 'rain.jpg', description: 'Drizzle', icon: ''};
+                weatherCode = {image: 'rain.jpg', description: 'Drizzle', icon: 'rainy'};
                 break;
             case 56:
             case 57: 
-                weatherCode = {image: 'rain.jpg', description: 'Freezing Drizzle', icon: ''};
+                weatherCode = {image: 'rain.jpg', description: 'Freezing Drizzle', icon: 'rainy'};
                 break;
             case 61:
             case 63:
             case 65: 
-                weatherCode = {image: 'rain.jpg', description: 'Rain', icon: ''};
+                weatherCode = {image: 'rain.jpg', description: 'Rain', icon: 'rainy'};
                 break;
             case 66:
             case 67: 
-                weatherCode = {image: 'rain.jpg', description: 'Freezing Rain', icon: ''};
+                weatherCode = {image: 'rain.jpg', description: 'Freezing Rain', icon: 'rainy'};
                 break;
             case 71:
             case 73:
             case 75:
-                weatherCode = {image: 'snow.jpg', description: 'Snow Fall', icon: ''};
+                weatherCode = {image: 'snow.jpg', description: 'Snow Fall', icon: 'ac_unit'};
                 break;
             case 77:
-                weatherCode = {image: 'snow.jpg', description: 'Snow grains', icon: ''};
+                weatherCode = {image: 'snow.jpg', description: 'Snow grains', icon: 'ac_unit'};
                 break;
             case 80:
             case 81:
             case 82:
-                weatherCode = {image: 'rain.jpg', description: 'Rain Showers', icon: ''};
+                weatherCode = {image: 'rain.jpg', description: 'Rain Showers', icon: 'rainy'};
                 break;
             case 85:
             case 86:
-                weatherCode = {image: 'snow.jpg', description: 'Snow Showers', icon: ''};
+                weatherCode = {image: 'snow.jpg', description: 'Snow Showers', icon: 'ac_unit'};
                 break;
             case 95:
             case 96:
             case 99:
-                weatherCode = {image: 'storm.jpg', description: 'Thunderstorm', icon: ''};
+                weatherCode = {image: 'storm.jpg', description: 'Thunderstorm', icon: 'thunderstorm'};
                 break;
             default:
-                weatherCode = {image: 'main.jpg', description: 'error', icon: ''};
+                weatherCode = {image: 'main.jpg', description: 'error', icon: 'partly_cloudy_day'};
         }
         return weatherCode;
     }
