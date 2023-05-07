@@ -116,6 +116,50 @@ export class WeatherService {
             case 3: 
                 weatherCode = {image: 'mainly_clear.jpg', description: 'Mainly Clear', icon: ''};
                 break;
+            case 45:
+            case 48: 
+                weatherCode = {image: 'fog.jpg', description: 'Fog', icon: ''};
+                break;
+            case 51:
+            case 53:
+            case 55:
+                weatherCode = {image: 'rain.jpg', description: 'Drizzle', icon: ''};
+                break;
+            case 56:
+            case 57: 
+                weatherCode = {image: 'rain.jpg', description: 'Freezing Drizzle', icon: ''};
+                break;
+            case 61:
+            case 63:
+            case 65: 
+                weatherCode = {image: 'rain.jpg', description: 'Rain', icon: ''};
+                break;
+            case 66:
+            case 67: 
+                weatherCode = {image: 'rain.jpg', description: 'Freezing Rain', icon: ''};
+                break;
+            case 71:
+            case 73:
+            case 75:
+                weatherCode = {image: 'snow.jpg', description: 'Snow Fall', icon: ''};
+                break;
+            case 77:
+                weatherCode = {image: 'snow.jpg', description: 'Snow grains', icon: ''};
+                break;
+            case 80:
+            case 81:
+            case 82:
+                weatherCode = {image: 'rain.jpg', description: 'Rain Showers', icon: ''};
+                break;
+            case 85:
+            case 86:
+                weatherCode = {image: 'snow.jpg', description: 'Snow Showers', icon: ''};
+                break;
+            case 95:
+            case 96:
+            case 99:
+                weatherCode = {image: 'storm.jpg', description: 'Thunderstorm', icon: ''};
+                break;
             default:
                 weatherCode = {image: 'main.jpg', description: 'error', icon: ''};
         }
