@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { CurrentWeather } from './weather/weather.model';
+import { WeatherService } from './weather/weather.service';
 
 @Component({
   selector: 'app-root',
@@ -6,8 +8,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor() {}
+  currentWeather!: CurrentWeather;
+
+  constructor(private weatherService: WeatherService) {}
 
   ngOnInit() {
+    this.currentWeather = this.weatherService.currentWeather;
+    this.weatherService.currentWeatherChange.subscribe(weather => this.currentWeather = weather);
   }
 }

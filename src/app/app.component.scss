@@ -10,7 +10,7 @@
     width: 100vw;
     height: 100vh;
     background-color: $almost-black;
-    background-image: url(../assets/images/screen/sunSmall.jpg);
+    background-image: url(../assets/images/screen/main.jpg);
     background-size: cover;
     background-repeat: no-repeat;
   }
@@ -32,10 +32,6 @@
 
 @media (min-width: 768px) {
   .app {
-    &__background {
-      background-image: url(../assets/images/screen/sun-Big.jpg);
-    }
-
     &__content {
       width: 60%;
     }

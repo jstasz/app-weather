@@ -60,11 +60,12 @@ export class WeatherService {
     
     getCurrentWeather(lat: number, lon: number) {
         this.dataStorageService.getWeather(lat, lon).subscribe(data => {
+            const currentDate: Date = new Date;
             const currentTemp: number = data.current_weather.temperature;
             const minTemp: number = data.daily.temperature_2m_min[0];
             const maxTemp: number = data.daily.temperature_2m_max[0];
-            const currentDate: Date = new Date;
-            this.currentWeather = new CurrentWeather(currentDate, this.city, currentTemp, minTemp, maxTemp);
+            const weatherCode = this.getWeatherCode(data.current_weather.weathercode);
+            this.currentWeather = new CurrentWeather(currentDate, this.city, currentTemp, minTemp, maxTemp, weatherCode);
             this.currentWeatherChange.next(this.currentWeather);
         })
     }
@@ -102,5 +103,22 @@ export class WeatherService {
             this.daysWeather = daysWeather;
             this.daysWeatherChange.next(this.daysWeather);
         })
+    }
+
+    getWeatherCode(code: number) {
+        let weatherCode;
+        switch (code) {
+            case 0:
+                weatherCode = {image: 'clear_sky.jpg', description: 'Clear Sky', icon: ''};
+                break;
+            case 1:
+            case 2:
+            case 3: 
+                weatherCode = {image: 'mainly_clear.jpg', description: 'Mainly Clear', icon: ''};
+                break;
+            default:
+                weatherCode = {image: 'main.jpg', description: 'error', icon: ''};
+        }
+        return weatherCode;
     }
 }

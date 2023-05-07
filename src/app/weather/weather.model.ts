@@ -12,12 +12,14 @@ export class CurrentWeather {
         public curTemp: number, 
         public minTemp: number, 
         public maxTemp: number, 
+        public weatherCode: {image: string, description: string, icon: string},
     ) {
         this.curDate = curDate;
         this.city = city;
         this.curTemp = curTemp;
         this.minTemp = minTemp;
         this.maxTemp = maxTemp;
+        this.weatherCode = weatherCode;
     }
 }
 

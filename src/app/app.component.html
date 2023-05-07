@@ -1,5 +1,7 @@
 <div class="app">
-  <div class="app__background"></div>
+  <div class="app__background"
+    [ngStyle]="{'background-image': currentWeather ? 'url(../../assets/images/screen/' + currentWeather.weatherCode.image + ')' : ''}">
+  </div>
   <div class="app__content">
     <app-weather></app-weather>
   </div>
