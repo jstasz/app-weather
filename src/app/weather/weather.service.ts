@@ -76,10 +76,12 @@ export class WeatherService {
             const nextHours = data.hourly.time.slice(currentHour+1, currentHour+6);
             const tempHours = data.hourly.temperature_2m.slice(currentHour+1, currentHour+6);
             const precipitation = data.hourly.precipitation_probability.slice(currentHour+1, currentHour+6);
+            const codeHours: number[] = data.hourly.weathercode.slice(currentHour+1, currentHour+6);
+            const weatherCodes = codeHours.map(el => this.getWeatherCode(el));
             const hoursWeather : HoursWeather[] = [];
 
             nextHours.map((hour: string, index: number) => {
-                const weatherItem = new HoursWeather(hour, tempHours[index], precipitation[index]);
+                const weatherItem = new HoursWeather(hour, tempHours[index], precipitation[index], weatherCodes[index]);
                 hoursWeather.push(weatherItem);
             })
             this.hoursWeather = hoursWeather;
@@ -93,11 +95,13 @@ export class WeatherService {
             const precipitation = data.daily.precipitation_sum.slice(1);
             const minTemp = data.daily.temperature_2m_min.slice(1);
             const maxTemp = data.daily.temperature_2m_max.slice(1);
+            const codeDays: number[] = data.daily.weathercode.slice(1);
+            const weatherCodes = codeDays.map(el => this.getWeatherCode(el));
             const daysWeather : DaysWeather[] = [];
             console.log(data)
 
             nextDays.map((day : string, index: number) => {
-                const weatherItem = new DaysWeather(day, precipitation[index], maxTemp[index], minTemp[index]);
+                const weatherItem = new DaysWeather(day, precipitation[index], maxTemp[index], minTemp[index], weatherCodes[index]);
                 daysWeather.push(weatherItem);
             })
             this.daysWeather = daysWeather;
