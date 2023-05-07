@@ -66,7 +66,6 @@ export class WeatherService {
             const currentDate: Date = new Date;
             this.currentWeather = new CurrentWeather(currentDate, this.city, currentTemp, minTemp, maxTemp);
             this.currentWeatherChange.next(this.currentWeather);
-            console.log(data)
         })
     }
 
@@ -94,6 +93,7 @@ export class WeatherService {
             const minTemp = data.daily.temperature_2m_min.slice(1);
             const maxTemp = data.daily.temperature_2m_max.slice(1);
             const daysWeather : DaysWeather[] = [];
+            console.log(data)
 
             nextDays.map((day : string, index: number) => {
                 const weatherItem = new DaysWeather(day, precipitation[index], maxTemp[index], minTemp[index]);

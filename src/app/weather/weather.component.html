@@ -5,8 +5,8 @@
     <div class="app__content-main">
         <div *ngIf="currentWeather">
             <p class="city">{{currentWeather.city}}</p>
-            <p>{{currentWeather.curDate.getDate().toString().padStart(2, '0') + ' / ' +
-                currentWeather.curDate.getMonth().toString().padStart(2, '0') + ' /' +
+            <p>{{currentWeather.curDate.getDate().toString().padStart(2, '0') + '-' +
+                (currentWeather.curDate.getMonth()+1).toString().padStart(2, '0') + '-' +
                 currentWeather.curDate.getFullYear()}}</p>
             <p>{{currentWeather.curDate.getHours().toString().padStart(2, '0') + ':' +
                 currentWeather.curDate.getMinutes().toString().padStart(2, '0')}}</p>
@@ -16,13 +16,13 @@
         </div>
     </div>
     <div class="dark-card dark-card-today" *ngIf="hoursWeather">
-        <div class="item" *ngFor="let item of hoursWeather">
-            <p>{{item.hour.slice(11)}}</p>
+        <div class="item" *ngFor="let weather of hoursWeather">
+            <p>{{weather.hour.slice(11)}}</p>
             <p class="material-symbols-outlined item__img">partly_cloudy_day</p>
-            <p>{{item.temp + '°'}}</p>
+            <p>{{weather.temp + '°'}}</p>
             <div class="item__rain">
                 <p class="material-symbols-outlined item__rain-drop">water_drop</p>
-                <p>{{item.precipitation + ' %'}}</p>
+                <p>{{weather.precipitation + ' %'}}</p>
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@
             <p>{{item.day}}</p>
             <div class="item__rain">
                 <p class="material-symbols-outlined item__rain-drop">water_drop</p>
-                <p>{{item.precipitation + ' %'}}</p>
+                <p>{{item.precipitation + ' mm'}}</p>
             </div>
             <p class="material-symbols-outlined item__img">partly_cloudy_day</p>
             <p>{{item.maxTemp + '° / ' + item.minTemp + '°'}}</p>
