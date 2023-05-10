@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { CurrentWeather } from './weather/weather.model';
-import { WeatherService } from './weather/weather.service';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +9,13 @@ import { WeatherService } from './weather/weather.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  currentWeather!: CurrentWeather;
+  currentWeather!: Observable<{currentWeather: CurrentWeather}>;
 
-  constructor(private weatherService: WeatherService) {}
+  constructor(
+    private store: Store<{weather: {currentWeather: CurrentWeather}}>
+    ) {}
 
   ngOnInit() {
-    this.currentWeather = this.weatherService.currentWeather;
-    this.weatherService.currentWeatherChange.subscribe(weather => this.currentWeather = weather);
+    this.currentWeather = this.store.select('weather');
   }
 }

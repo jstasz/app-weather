@@ -22,9 +22,8 @@ export class WeatherComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    this.currentWeather = this.store.select('weather')
+    this.currentWeather = this.store.select('weather');
     this.weatherService.cityChange.subscribe(city => this.city = city);
-    // this.weatherService.currentWeatherChange.subscribe(weather => this.currentWeather = weather);
     this.weatherService.hoursWeatherChange.subscribe(weather => this.hoursWeather = weather);
     this.weatherService.daysWeatherChange.subscribe(weather => this.daysWeather = weather);
     this.weatherService.isLoadingChange.subscribe(load => this.isLoading = load);

@@ -14,7 +14,9 @@ const initialState: {currentWeather: CurrentWeather} = {
     }
 }
 
-export function weatherReducer(state = initialState, action: Action) {
+export function weatherReducer(
+    state = initialState, 
+    action: Action) {
     switch (action.type) {
         case WeatherActions.GET_CURRENT_WEATHER:
             return {

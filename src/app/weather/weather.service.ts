@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { BehaviorSubject, Subject} from 'rxjs';
 import { DataStorageService } from '../data-storage.service';
 import { CurrentWeather, DaysWeather, HoursWeather, Position } from './weather.model';
+import * as WeatherActions from './store/weather.action'
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +13,12 @@ export class WeatherService {
     isLoadingChange = this.isLoading.asObservable();
     city: string = '';
     cityChange = new Subject<string>();
-    currentWeather!: CurrentWeather;
-    currentWeatherChange = new Subject<CurrentWeather>();
     hoursWeather! : HoursWeather[];
     hoursWeatherChange = new Subject<HoursWeather[]>();
     daysWeather! : DaysWeather[];
     daysWeatherChange = new Subject<DaysWeather[]>();
 
-  constructor(private dataStorageService : DataStorageService) { }
+  constructor(private dataStorageService : DataStorageService, private store: Store<{weather: {currentWeather: CurrentWeather}}>) { }
 
     getPosition() {
         if (navigator.geolocation)
@@ -66,8 +66,8 @@ export class WeatherService {
             const minTemp: number = data.daily.temperature_2m_min[0];
             const maxTemp: number = data.daily.temperature_2m_max[0];
             const weatherCode = this.getWeatherCode(data.current_weather.weathercode);
-            this.currentWeather = new CurrentWeather(currentDate, currentTime,this.city, currentTemp, minTemp, maxTemp, weatherCode);
-            this.currentWeatherChange.next(this.currentWeather);
+
+            this.store.dispatch(new WeatherActions.GetCurrentWeather(new CurrentWeather(currentDate, currentTime, this.city, currentTemp, minTemp, maxTemp, weatherCode)));
         })
     }
 
