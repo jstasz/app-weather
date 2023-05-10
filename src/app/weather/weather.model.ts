@@ -7,7 +7,8 @@ export interface Position {
 
 export class CurrentWeather {
     constructor(
-        public curDate: Date,
+        public curDate: string,
+        public curTime: string,
         public city: string,
         public curTemp: number, 
         public minTemp: number, 
@@ -15,6 +16,7 @@ export class CurrentWeather {
         public weatherCode: {image: string, description: string, icon: string},
     ) {
         this.curDate = curDate;
+        this.curTime = curTime;
         this.city = city;
         this.curTemp = curTemp;
         this.minTemp = minTemp;

@@ -60,12 +60,13 @@ export class WeatherService {
     
     getCurrentWeather(lat: number, lon: number) {
         this.dataStorageService.getWeather(lat, lon).subscribe(data => {
-            const currentDate: Date = new Date;
+            const currentDate: string = `${new Date().getDate().toString().padStart(2, '0')} / ${(new Date().getMonth()+1).toString().padStart(2, '0')} / ${new Date().getFullYear()}`;
+            const currentTime: string = `${new Date().getHours().toString().padStart(2, '0')} : ${new Date().getMinutes().toString().padStart(2, '0')}`;
             const currentTemp: number = data.current_weather.temperature;
             const minTemp: number = data.daily.temperature_2m_min[0];
             const maxTemp: number = data.daily.temperature_2m_max[0];
             const weatherCode = this.getWeatherCode(data.current_weather.weathercode);
-            this.currentWeather = new CurrentWeather(currentDate, this.city, currentTemp, minTemp, maxTemp, weatherCode);
+            this.currentWeather = new CurrentWeather(currentDate, currentTime,this.city, currentTemp, minTemp, maxTemp, weatherCode);
             this.currentWeatherChange.next(this.currentWeather);
         })
     }

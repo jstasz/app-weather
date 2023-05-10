@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { WeatherComponent } from './weather/weather.component';
+import { StoreModule } from '@ngrx/store';
+import { weatherReducer } from './weather/store/weather.reducer';
 
 @NgModule({
   declarations: [
@@ -11,7 +13,10 @@ import { WeatherComponent } from './weather/weather.component';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({
+      weather: weatherReducer
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

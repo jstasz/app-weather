@@ -4,15 +4,13 @@
 <div *ngIf="!isLoading">
     <div class="app__content-main">
         <div *ngIf="currentWeather">
-            <p class="city">{{currentWeather.city}}</p>
-            <p>{{currentWeather.curDate.getDate().toString().padStart(2, '0') + '-' +
-                (currentWeather.curDate.getMonth()+1).toString().padStart(2, '0') + '-' +
-                currentWeather.curDate.getFullYear()}}</p>
-            <p>{{currentWeather.curDate.getHours().toString().padStart(2, '0') + ':' +
-                currentWeather.curDate.getMinutes().toString().padStart(2, '0')}}</p>
-            <p class="temparature">{{currentWeather.curTemp + '°'}}</p>
-            <p>{{currentWeather.maxTemp + '° / ' + currentWeather.minTemp + '°'}}</p>
-            <p class="description">{{currentWeather.weatherCode.description}}</p>
+            <p class="city">{{(currentWeather | async)?.currentWeather?.city}}</p>
+            <p>{{(currentWeather | async)?.currentWeather?.curDate}}</p>
+            <p>{{(currentWeather | async)?.currentWeather?.curTime}}</p>
+            <p class="temparature">{{(currentWeather | async)?.currentWeather?.curTemp + '°'}}</p>
+            <p>{{(currentWeather | async)?.currentWeather?.maxTemp + '° / ' + (currentWeather |
+                async)?.currentWeather?.minTemp + '°'}}</p>
+            <p class="description">{{(currentWeather | async)?.currentWeather?.weatherCode?.description}}</p>
         </div>
     </div>
     <div class="dark-card dark-card-today" *ngIf="hoursWeather">
