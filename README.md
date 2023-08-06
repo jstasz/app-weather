@@ -24,7 +24,7 @@ Weather App is a weather application allows the user to check the current weathe
 |                                                   | 
 | ------------------------------------------------------- |
 | HTML                         
-| SCSS  
+| CSS (SCSS)
 | TypeScript
 | Angular
 
